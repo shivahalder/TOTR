@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUBMIT YOUR SOUND | TRITON ON THE RADAR</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Chakra+Petch:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --accent: #00ff00;
+      --accent-glow: rgba(0, 255, 0, 0.4);
+      --accent-secondary: #ff00ff;
+      --text-main: #ffffff;
+      --text-dim: #aaa;
+      --border: rgba(255, 255, 255, 0.15);
+      --font-main: 'Chakra Petch', sans-serif;
+      --font-heading: 'Anton', sans-serif;
+      --font-logo: 'Bebas Neue', sans-serif;
+      --grid-color: rgba(0, 255, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.4;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+
+    /* --- GRID BACKGROUND --- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* --- PULSING GLOW BACKGROUND --- */
+    .glow-container {
+      position: fixed;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 100, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 50, 100, 0.1) 0%, transparent 50%);
+      z-index: -2;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* --- SCANLINE EFFECT --- */
+    .scanline {
+      position: fixed;
+      width: 100%; height: 4px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      position: relative; 
+      z-index: 20;
+    }
+    
+    /* --- HEADER WITH ATTITUDE --- */
+    header { 
+      padding: 30px 0; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background: var(--accent-secondary);
+      animation: slide 3s infinite alternate;
+    }
+
+    @keyframes slide {
+      0% { left: 0; }
+      100% { left: calc(100% - 100px); }
+    }
+
+    .logo { 
+      font-family: var(--font-logo);
+      font-size: 2.2rem; 
+      text-transform: uppercase; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      color: white; 
+      text-decoration: none; 
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--accent);
+      position: relative;
+    }
+
+    .logo::before {
+      content: "▶";
+      color: var(--accent);
+      font-size: 1.2rem;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    nav { 
+      display: flex; 
+      gap: 25px;
+    }
+
+    nav a { 
+      color: #777; 
+      text-decoration: none; 
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      text-transform: uppercase;
+      transition: 0.3s; 
+      padding: 5px 0;
+      position: relative;
+    }
+
+    nav a:hover, nav a.active { 
+      color: var(--accent); 
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    /* --- HERO WITH RAP VIBE --- */
+    .submit-hero { 
+      margin: 60px 0 80px; 
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      font-family: var(--font-heading);
+      font-size: clamp(4rem, 12vw, 8.5rem); 
+      letter-spacing: -0.03em; 
+      line-height: 0.85; 
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 
+        3px 3px 0px #000,
+        6px 6px 0px var(--accent-glow);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-sub {
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-top: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 700;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .hero-sub::before {
+      content: "//";
+      position: absolute;
+      left: 0;
+      color: var(--accent-secondary);
+    }
+
+    /* --- SUBMISSION GRID --- */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 100px;
+      align-items: start;
+    }
+
+    /* --- CARDS WITH RAP FLAIR --- */
+    .rap-card {
+      background: rgba(10, 10, 10, 0.9);
+      border: 3px solid var(--accent);
+      padding: 40px;
+      position: relative;
+      box-shadow: 
+        10px 10px 0px rgba(0, 0, 0, 0.8),
+        0 0 30px var(--accent-glow);
+      transform: skewX(-1deg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .rap-card:hover {
+      transform: skewX(-1deg) translateY(-10px);
+      box-shadow: 
+        15px 15px 0px rgba(0, 0, 0, 0.8),
+        0 0 40px var(--accent-glow);
+      border-color: var(--accent-secondary);
+    }
+
+    .rap-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 255, 0, 0.05) 50%,
+        transparent 70%
+      );
+      animation: shine 5s infinite linear;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title::before {
+      content: "[";
+      margin-right: 5px;
+      color: var(--accent-secondary);
+    }
+
+    .section-title::after {
+      content: "]";
+      margin-left: 5px;
+      color: var(--accent-secondary);
+    }
+
+    h2 { 
+      font-family: var(--font-heading);
+      font-size: 3rem; 
+      margin-bottom: 30px; 
+      letter-spacing: -0.03em;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-content p {
+      color: var(--text-dim);
+      margin-bottom: 24px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* --- SUBMIT BUTTON --- */
+    .btn-submit {
+      padding: 18px 40px;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-secondary);
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);
+    }
+
+    .btn-submit::after {
+      content: "→";
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    /* --- REQUIREMENTS LIST --- */
+    .req-list {
+      list-style: none;
+      margin-top: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .req-list li {
+      margin-bottom: 25px;
+      padding-left: 40px;
+      position: relative;
+      color: var(--text-dim);
+      border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+      padding-bottom: 15px;
+    }
+
+    .req-list li:last-child {
+      border-bottom: none;
+    }
+
+    .req-list li::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .req-list strong {
+      color: white;
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .req-list span {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #999;
+    }
+
+    /* --- INFO BADGES --- */
+    .info-badge {
+      display: inline-block;
+      background: rgba(255, 0, 255, 0.1);
+      color: var(--accent-secondary);
+      padding: 5px 10px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+      border: 1px solid var(--accent-secondary);
+      transform: rotate(-1deg);
+    }
+
+    /* --- FOOTER --- */
+    footer { 
+      padding: 40px 0 60px; 
+      border-top: 1px solid rgba(0, 255, 0, 0.2); 
+      color: #555; 
+      font-size: 0.75rem; 
+      font-weight: 900;
+      text-transform: uppercase;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .social-links a {
+      color: #666;
+      text-decoration: none;
+      transition: 0.3s;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    .social-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .social-links a:hover::after {
+      width: 100%;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .hero-text { font-size: 4.5rem; }
+      h2 { font-size: 2.5rem; }
+      header { flex-direction: column; gap: 20px; }
+      nav { flex-wrap: wrap; justify-content: center; }
+      .rap-card { padding: 30px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-text { font-size: 3.5rem; }
+      h2 { font-size: 2.2rem; }
+      .card-content p { font-size: 1rem; }
+      .req-list li { padding-left: 30px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .logo { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-container"></div>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">
+        TRITON ON THE RADAR
+      </a>
+      <nav>
+        <a href="index.html">HOME</a>
+        <a href="roster.html">ROSTER</a>
+        <a href="submit.html" class="active">SUBMIT</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+    </header>
+
+    <div class="submit-hero">
+      <div class="hero-text">
+        SUBMIT<br>
+        <span style="color: var(--accent);">YOUR SOUND</span>
+      </div>
+      <div class="hero-sub">
+        GET ON THE RADAR - SHOW US WHAT YOU GOT
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <section class="rap-card">
+        <span class="section-title">Process</span>
+        <h2>HOW TO GET<br>ON THE RADAR</h2>
+        
+        <div class="card-content">
+          <p>
+            We review every submission with a critical ear. Our team hunts for high-quality production, a distinct artist identity, and that raw creative energy that makes heads turn.
+          </p>
+          <p>
+            Selected artists get the full treatment: rollout support, visual assets, and placement across our community channels. We're looking for the next wave.
+          </p>
+          
+          <a href="https://forms.google.com/YOUR_FORM_LINK" target="_blank" class="btn-submit">
+            OPEN SUBMISSION FORM
+          </a>
+        </div>
+      </section>
+
+      <section class="rap-card">
+        <span class="section-title">Submission Guide</span>
+        <h2>WHAT<br>WE NEED</h2>
+        
+        <div class="card-content">
+          <ul class="req-list">
+            <li>
+              <strong>HIGH-QUALITY AUDIO</strong>
+              <span>Submit finished WAV or 320kbps MP3 files only. No unfinished demos or rough cuts. Quality speaks first.</span>
+              <div class="info-badge">NO UNFINISHED TRACKS</div>
+            </li>
+            <li>
+              <strong>SOCIAL LINKS</strong>
+              <span>Active Instagram or TikTok presence so we can see your aesthetic. Show us your vibe and your audience.</span>
+              <div class="info-badge">SHOW YOUR WORLD</div>
+            </li>
+            <li>
+              <strong>ARTIST BIO</strong>
+              <span>A short 2-3 sentence summary of who you are and your sound. Keep it real, keep it raw.</span>
+              <div class="info-badge">TELL YOUR STORY</div>
+            </li>
+            <li>
+              <strong>UCSD AFFILIATION</strong>
+              <span>Mention if you're a current student or alumni. Campus connection gets priority but talent comes first.</span>
+              <div class="info-badge">CAMPUS CONNECTION</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 TRITON ON THE RADAR | ALL EYES ON US</p>
+      <div class="social-links">
+        <a href="https://instagram.com/tritononradar" target="_blank">INSTAGRAM</a>
+        <a href="#">DISCORD</a>
+        <a href="#">SOUNDCLOUD</a>
+        <a href="#">YOUTUBE</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add typing effect to the hero text
+      const heroText = document.querySelector('.hero-text');
+      if (heroText) {
+        heroText.style.opacity = '0';
+        heroText.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          heroText.style.transition = 'opacity 1s ease, transform 1s ease';
+          heroText.style.opacity = '1';
+          heroText.style.transform = 'translateY(0)';
+        }, 300);
+      }
+      
+      // Add glitch effect on logo hover
+      const logo = document.querySelector('.logo');
+      logo.addEventListener('mouseenter', function() {
+        this.style.textShadow = '0 0 15px var(--accent), 2px 2px 0px var(--accent-secondary)';
+      });
+      
+      logo.addEventListener('mouseleave', function() {
+        this.style.textShadow = '0 0 10px var(--accent)';
+      });
+      
+      // Animate cards on scroll
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'skewX(-1deg) translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.rap-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'skewX(-1deg) translateY(20px)';
+        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(card);
+      });
+      
+      // Button hover effect enhancement
+      const submitBtn = document.querySelector('.btn-submit');
+      if (submitBtn) {
+        submitBtn.addEventListener('mouseenter', function() {
+          this.style.letterSpacing = '2px';
+        });
+        
+        submitBtn.addEventListener('mouseleave', function() {
+          this.style.letterSpacing = '1px';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

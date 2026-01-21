@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORIGIN STORY | TRITON ON THE RADAR</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Chakra+Petch:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --accent: #00ff00;
+      --accent-bright: #00ffaa; /* Brighter green for better visibility */
+      --accent-glow: rgba(0, 255, 0, 0.6); /* Increased glow opacity */
+      --accent-secondary: #ff00ff;
+      --text-main: #ffffff;
+      --text-dim: #aaa;
+      --border: rgba(255, 255, 255, 0.15);
+      --font-main: 'Chakra Petch', sans-serif;
+      --font-heading: 'Anton', sans-serif;
+      --font-logo: 'Bebas Neue', sans-serif;
+      --grid-color: rgba(0, 255, 0, 0.15); /* Slightly brighter grid */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.4;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+
+    /* --- GRID BACKGROUND --- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* --- PULSING GLOW BACKGROUND --- */
+    .glow-container {
+      position: fixed;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 150, 0, 0.2) 0%, transparent 50%), /* Brighter green */
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.2) 0%, transparent 50%), /* Brighter magenta */
+        radial-gradient(circle at 40% 80%, rgba(0, 100, 150, 0.15) 0%, transparent 50%);
+      z-index: -2;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* --- SCANLINE EFFECT --- */
+    .scanline {
+      position: fixed;
+      width: 100%; height: 4px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.25; /* Increased opacity */
+      top: 0;
+      left: 0;
+      z-index: 100;
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      position: relative; 
+      z-index: 20;
+    }
+    
+    /* --- HEADER WITH ATTITUDE --- */
+    header { 
+      padding: 30px 0; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background: var(--accent-secondary);
+      animation: slide 3s infinite alternate;
+    }
+
+    @keyframes slide {
+      0% { left: 0; }
+      100% { left: calc(100% - 100px); }
+    }
+
+    .logo { 
+      font-family: var(--font-logo);
+      font-size: 2.2rem; 
+      text-transform: uppercase; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      color: white; 
+      text-decoration: none; 
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--accent);
+      position: relative;
+    }
+
+    .logo::before {
+      content: "▶";
+      color: var(--accent);
+      font-size: 1.2rem;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    nav { 
+      display: flex; 
+      gap: 25px;
+    }
+
+    nav a { 
+      color: #777; 
+      text-decoration: none; 
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      text-transform: uppercase;
+      transition: 0.3s; 
+      padding: 5px 0;
+      position: relative;
+    }
+
+    nav a:hover, nav a.active { 
+      color: var(--accent); 
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    /* --- HERO WITH RAP VIBE --- */
+    .rap-hero { 
+      margin: 60px 0 80px; 
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      font-family: var(--font-heading);
+      font-size: clamp(4rem, 12vw, 8.5rem); 
+      letter-spacing: -0.03em; 
+      line-height: 0.85; 
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 
+        3px 3px 0px #000,
+        6px 6px 0px var(--accent-glow);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-sub {
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-top: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 700;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .hero-sub::before {
+      content: "//";
+      position: absolute;
+      left: 0;
+      color: var(--accent-secondary);
+    }
+
+    /* --- ORIGIN SECTION --- */
+    .origin-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 100px;
+      align-items: start;
+    }
+
+    .origin-text {
+      padding-right: 20px;
+      position: relative;
+    }
+
+    .origin-text::before {
+      content: ">";
+      position: absolute;
+      left: -30px;
+      top: 0;
+      color: var(--accent);
+      font-family: monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .origin-title { 
+      font-family: var(--font-heading);
+      font-size: 3.5rem; 
+      text-transform: uppercase;
+      margin-bottom: 30px; 
+      line-height: 1;
+      color: white;
+      position: relative;
+      display: inline-block;
+    }
+
+    .origin-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .origin-text p { 
+      font-size: 1.3rem; 
+      color: var(--text-dim); 
+      margin-bottom: 30px; 
+      font-weight: 400;
+      line-height: 1.5;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .origin-text p::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0.7; /* Increased opacity */
+    }
+
+    .origin-text b { 
+      color: var(--accent-bright); /* Using brighter green */
+      font-weight: 700;
+      text-shadow: 0 0 8px var(--accent-glow); /* Increased glow */
+    }
+
+    /* --- ENHANCED STATS BOX WITH BETTER GREEN VISIBILITY --- */
+    .stats-box {
+      background: rgba(5, 5, 5, 0.95); /* Darker background for better contrast */
+      border: 3px solid var(--accent);
+      padding: 30px;
+      position: relative;
+      box-shadow: 
+        10px 10px 0px rgba(0, 0, 0, 0.8),
+        0 0 40px var(--accent-glow); /* Stronger glow */
+      transform: skewX(-2deg);
+      overflow: hidden;
+    }
+
+    .stats-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 255, 0, 0.08) 50%, /* Brighter shine effect */
+        transparent 70%
+      );
+      animation: shine 5s infinite linear;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px; /* Increased gap */
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-card {
+      padding: 22px 18px; /* Increased padding */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(0, 255, 0, 0.3); /* Thicker, more visible border */
+      transition: all 0.3s;
+      background: rgba(0, 0, 0, 0.4); /* Added subtle background */
+      border-radius: 4px;
+    }
+
+    .stat-card:hover {
+      background: rgba(0, 255, 0, 0.12); /* More visible hover state */
+      transform: translateX(8px); /* More movement on hover */
+      border-bottom-color: var(--accent-bright);
+    }
+
+    .stat-card:last-child {
+      border-bottom: none;
+    }
+
+    .stat-card span { 
+      font-size: 0.8rem; 
+      font-weight: 900; 
+      text-transform: uppercase; 
+      color: #888; /* Lighter gray for better contrast */
+      letter-spacing: 1.5px; /* Increased letter spacing */
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .stat-card b { 
+      font-family: var(--font-heading); 
+      font-size: 1.6rem; /* Slightly larger */
+      text-transform: uppercase; 
+      color: var(--accent-bright); /* Using brighter green */
+      text-shadow: 0 0 10px var(--accent-glow); /* Stronger glow */
+      letter-spacing: 0.5px;
+      font-weight: 900;
+      transition: all 0.3s;
+    }
+
+    /* Specific styling for better green visibility */
+    .stat-card:nth-child(1) b { color: var(--accent-bright); } /* OAKLAND 510 */
+    .stat-card:nth-child(2) b { color: var(--accent-bright); } /* 1ST UNI PROGRAM */
+    .stat-card:nth-child(3) b { color: var(--accent-bright); } /* CALI RAP / ALT */
+    .stat-card:nth-child(4) b { color: var(--accent-bright); } /* ARTIST GROWTH */
+    .stat-card:nth-child(5) b { color: var(--accent-bright); } /* RAW & UNCUT */
+
+    .advisory {
+      margin-top: 40px;
+      border: 2px solid var(--accent-secondary);
+      padding: 10px 18px; /* Increased padding */
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.85rem; /* Slightly larger */
+      background: rgba(0, 0, 0, 0.8);
+      color: var(--accent-secondary);
+      text-transform: uppercase;
+      letter-spacing: 2.5px; /* Increased letter spacing */
+      transform: rotate(-1deg);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.4); /* Stronger glow */
+    }
+
+    .quote {
+      margin-top: 30px;
+      padding: 25px; /* Increased padding */
+      border-left: 4px solid var(--accent-secondary);
+      background: rgba(255, 0, 255, 0.08); /* More visible background */
+      position: relative;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote p {
+      font-size: 1.2rem; /* Slightly larger */
+      color: #eee; /* Lighter text */
+      font-style: italic;
+      line-height: 1.5;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .quote::before {
+      content: "»";
+      position: absolute;
+      left: -20px; /* Adjusted position */
+      top: -15px;
+      color: var(--accent-secondary);
+      font-size: 2.5rem; /* Larger */
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    }
+
+    /* --- FOOTER --- */
+    footer { 
+      padding: 40px 0 60px; 
+      border-top: 1px solid rgba(0, 255, 0, 0.3); /* More visible border */
+      color: #555; 
+      font-size: 0.75rem; 
+      font-weight: 900;
+      text-transform: uppercase;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      letter-spacing: 1px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .social-links a {
+      color: #666;
+      text-decoration: none;
+      transition: 0.3s;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-bright);
+    }
+
+    .social-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .social-links a:hover::after {
+      width: 100%;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .origin-section { grid-template-columns: 1fr; }
+      .hero-text { font-size: 4.5rem; }
+      .origin-title { font-size: 2.8rem; }
+      header { flex-direction: column; gap: 20px; }
+      nav { flex-wrap: wrap; justify-content: center; }
+      .stat-card b { font-size: 1.4rem; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-text { font-size: 3.5rem; }
+      .origin-title { font-size: 2.2rem; }
+      .origin-text p { font-size: 1.1rem; }
+      .stat-card b { font-size: 1.3rem; }
+      .stat-card span { font-size: 0.75rem; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-container"></div>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">
+        TRITON ON THE RADAR
+      </a>
+      <nav>
+        <a href="index.html">HOME</a>
+        <a href="roster.html">ROSTER</a>
+        <a href="submit.html">SUBMIT</a>
+        <a href="about.html" class="active">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+    </header>
+
+    <div class="rap-hero">
+      <div class="hero-text">
+        DETECTING<br>
+        <span style="color: var(--accent-bright);">THE WAVE.</span> <!-- Using brighter green -->
+      </div>
+      <div class="hero-sub">
+        OAKLAND TO THE CAMPUS - THE MOVEMENT STARTS HERE
+      </div>
+    </div>
+
+    <section class="origin-section">
+      <div class="origin-text">
+        <h1 class="origin-title">THE ORIGIN</h1>
+        <p>
+          Founded by <b>SHIVA</b>, an Indian American student straight out the heart of <b>OAKLAND, CALIFORNIA</b>. 
+          Growing up in the Town, life was a grind—but the music was the lifeline.
+        </p>
+        <p>
+          Influenced by the heavy hustle of <b>THE THIZZLER</b> and the polished heat of <b>ON THE RADAR</b>, Shiva saw the campus scene was silent. 
+          The underground had no microphone.
+        </p>
+        <p>
+          Now, <b>TRITON ON THE RADAR</b> is the first university-backed platform making history, putting the campus sound on the global map.
+        </p>
+      </div>
+
+      <div class="stats-box">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span>ROOTS</span>
+            <b>OAKLAND 510</b>
+          </div>
+          <div class="stat-card">
+            <span>STATUS</span>
+            <b>1ST UNI PROGRAM</b>
+          </div>
+          <div class="stat-card">
+            <span>SOUND</span>
+            <b>CALI RAP / ALT</b>
+          </div>
+          <div class="stat-card">
+            <span>MISSION</span>
+            <b>ARTIST GROWTH</b>
+          </div>
+          <div class="stat-card">
+            <span>ENERGY</span>
+            <b>RAW & UNCUT</b>
+          </div>
+        </div>
+        
+        <div class="advisory">PARENTAL ADVISORY: RAW TALENT</div>
+        
+        <div class="quote">
+          <p>"I'm building a bridge for the artists who don't fit the mold. The ones with stories that need to be heard." — Shiva</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 TRITON ON THE RADAR | ALL EYES ON US</p>
+      <div class="social-links">
+        <a href="https://instagram.com/tritononradar" target="_blank">INSTAGRAM</a>
+        <a href="#">DISCORD</a>
+        <a href="#">SOUNDCLOUD</a>
+        <a href="#">YOUTUBE</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add typing effect to the hero text
+      const heroText = document.querySelector('.hero-text');
+      if (heroText) {
+        heroText.style.opacity = '0';
+        heroText.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          heroText.style.transition = 'opacity 1s ease, transform 1s ease';
+          heroText.style.opacity = '1';
+          heroText.style.transform = 'translateY(0)';
+        }, 300);
+      }
+      
+      // Enhanced hover effect to stat cards with stronger green
+      const statCards = document.querySelectorAll('.stat-card');
+      statCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          const bElement = this.querySelector('b');
+          if (bElement) {
+            bElement.style.color = 'var(--accent-bright)';
+            bElement.style.transform = 'scale(1.08)';
+            bElement.style.textShadow = '0 0 15px var(--accent-glow)'; /* Stronger glow on hover */
+            bElement.style.letterSpacing = '1px'; /* Slight letter spacing increase */
+          }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          const bElement = this.querySelector('b');
+          if (bElement) {
+            bElement.style.color = 'var(--accent-bright)';
+            bElement.style.transform = 'scale(1)';
+            bElement.style.textShadow = '0 0 10px var(--accent-glow)';
+            bElement.style.letterSpacing = '0.5px';
+          }
+        });
+      });
+      
+      // Add glitch effect on logo hover
+      const logo = document.querySelector('.logo');
+      logo.addEventListener('mouseenter', function() {
+        this.style.textShadow = '0 0 15px var(--accent), 2px 2px 0px var(--accent-secondary)';
+        this.style.color = 'var(--accent-bright)';
+      });
+      
+      logo.addEventListener('mouseleave', function() {
+        this.style.textShadow = '0 0 10px var(--accent)';
+        this.style.color = 'white';
+      });
+      
+      // Add pulse animation to stat box on page load
+      const statsBox = document.querySelector('.stats-box');
+      if (statsBox) {
+        setTimeout(() => {
+          statsBox.style.boxShadow = '10px 10px 0px rgba(0, 0, 0, 0.8), 0 0 60px var(--accent-glow)';
+          setTimeout(() => {
+            statsBox.style.boxShadow = '10px 10px 0px rgba(0, 0, 0, 0.8), 0 0 40px var(--accent-glow)';
+          }, 500);
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>

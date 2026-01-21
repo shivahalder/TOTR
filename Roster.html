@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THE ROSTER | TRITON ON THE RADAR</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Chakra+Petch:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --accent: #00ff00;
+      --accent-glow: rgba(0, 255, 0, 0.4);
+      --accent-secondary: #ff00ff;
+      --text-main: #ffffff;
+      --text-dim: #aaa;
+      --border: rgba(255, 255, 255, 0.15);
+      --font-main: 'Chakra Petch', sans-serif;
+      --font-heading: 'Anton', sans-serif;
+      --font-logo: 'Bebas Neue', sans-serif;
+      --grid-color: rgba(0, 255, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.4;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+
+    /* --- GRID BACKGROUND --- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* --- PULSING GLOW BACKGROUND --- */
+    .glow-container {
+      position: fixed;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 100, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 50, 100, 0.1) 0%, transparent 50%);
+      z-index: -2;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* --- SCANLINE EFFECT --- */
+    .scanline {
+      position: fixed;
+      width: 100%; height: 4px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      position: relative; 
+      z-index: 20;
+    }
+    
+    /* --- HEADER WITH ATTITUDE --- */
+    header { 
+      padding: 30px 0; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background: var(--accent-secondary);
+      animation: slide 3s infinite alternate;
+    }
+
+    @keyframes slide {
+      0% { left: 0; }
+      100% { left: calc(100% - 100px); }
+    }
+
+    .logo { 
+      font-family: var(--font-logo);
+      font-size: 2.2rem; 
+      text-transform: uppercase; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      color: white; 
+      text-decoration: none; 
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--accent);
+      position: relative;
+    }
+
+    .logo::before {
+      content: "▶";
+      color: var(--accent);
+      font-size: 1.2rem;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    nav { 
+      display: flex; 
+      gap: 25px;
+    }
+
+    nav a { 
+      color: #777; 
+      text-decoration: none; 
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      text-transform: uppercase;
+      transition: 0.3s; 
+      padding: 5px 0;
+      position: relative;
+    }
+
+    nav a:hover, nav a.active { 
+      color: var(--accent); 
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    /* --- HERO WITH RAP VIBE --- */
+    .roster-hero { 
+      margin: 60px 0 50px; 
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      font-family: var(--font-heading);
+      font-size: clamp(4rem, 12vw, 8.5rem); 
+      letter-spacing: -0.03em; 
+      line-height: 0.85; 
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 
+        3px 3px 0px #000,
+        6px 6px 0px var(--accent-glow);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-sub {
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-top: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 700;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .hero-sub::before {
+      content: "//";
+      position: absolute;
+      left: 0;
+      color: var(--accent-secondary);
+    }
+
+    /* --- EMPTY STATE --- */
+    .empty-state {
+      text-align: center;
+      margin: 80px 0 100px;
+      padding: 60px 40px;
+      border: 3px dashed var(--accent);
+      border-radius: 10px;
+      background: rgba(0, 255, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .empty-state::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0, 255, 0, 0.03) 10px,
+        rgba(0, 255, 0, 0.03) 20px
+      );
+    }
+
+    .empty-icon {
+      font-size: 5rem;
+      margin-bottom: 30px;
+      color: var(--accent);
+      text-shadow: 0 0 20px var(--accent);
+      animation: pulse-icon 2s infinite;
+    }
+
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .empty-state p {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    /* --- COMING SOON ARTIST PREVIEW --- */
+    .coming-soon {
+      margin-bottom: 80px;
+    }
+
+    .coming-soon h3 {
+      font-family: var(--font-main);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .coming-soon h3::before, .coming-soon h3::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 100px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .coming-soon h3::before {
+      left: calc(50% - 120px);
+    }
+
+    .coming-soon h3::after {
+      right: calc(50% - 120px);
+    }
+
+    .coming-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .coming-card {
+      background: rgba(10, 10, 10, 0.6);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      transform: skewX(-1deg);
+    }
+
+    .coming-card:hover {
+      border-color: var(--accent);
+      transform: skewX(-1deg) translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 255, 0, 0.1);
+    }
+
+    .coming-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: black;
+      font-weight: 900;
+      opacity: 0.7;
+    }
+
+    .coming-card h4 {
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .coming-card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 15px;
+    }
+
+    /* --- CALL TO ACTION --- */
+    .cta-section {
+      text-align: center;
+      margin-bottom: 100px;
+    }
+
+    .cta-title {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .cta-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 20px 50px;
+      background: var(--accent);
+      color: black;
+      text-decoration: none;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+    }
+
+    .btn-cta:hover {
+      background: var(--accent-secondary);
+      color: white;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 0, 255, 0.4);
+      letter-spacing: 3px;
+    }
+
+    .btn-cta::after {
+      content: "→";
+      margin-left: 15px;
+      font-weight: bold;
+    }
+
+    /* --- FOOTER --- */
+    footer { 
+      padding: 40px 0 60px; 
+      border-top: 1px solid rgba(0, 255, 0, 0.2); 
+      color: #555; 
+      font-size: 0.75rem; 
+      font-weight: 900;
+      text-transform: uppercase;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .social-links a {
+      color: #666;
+      text-decoration: none;
+      transition: 0.3s;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    .social-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .social-links a:hover::after {
+      width: 100%;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .hero-text { font-size: 4.5rem; }
+      .empty-state h3 { font-size: 2.5rem; }
+      .coming-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-title { font-size: 2.5rem; }
+      header { flex-direction: column; gap: 20px; }
+      nav { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-text { font-size: 3.5rem; }
+      .empty-state h3 { font-size: 2rem; }
+      .empty-state p { font-size: 1rem; }
+      .coming-grid { grid-template-columns: 1fr; }
+      .cta-title { font-size: 2rem; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .logo { font-size: 1.8rem; }
+      .empty-icon { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-container"></div>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">
+        TRITON ON THE RADAR
+      </a>
+      <nav>
+        <a href="index.html">HOME</a>
+        <a href="roster.html" class="active">ROSTER</a>
+        <a href="submit.html">SUBMIT</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+    </header>
+
+    <div class="roster-hero">
+      <div class="hero-text">
+        THE<br>
+        <span style="color: var(--accent);">ROSTER</span>
+      </div>
+      <div class="hero-sub">
+        SPOTLIGHTING THE SOUND OF THE CAMPUS
+      </div>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state">
+      <div class="empty-icon">🎤</div>
+      <h3>RADAR SCANNING</h3>
+      <p>We're actively scouting for the next wave of talent from UCSD and the San Diego underground. The roster is building—be the first to make the list.</p>
+      
+      <div class="coming-soon">
+        <h3>COMING SOON</h3>
+        <div class="coming-grid">
+          <div class="coming-card">
+            <div class="coming-img">?</div>
+            <h4>NEXT ARTIST</h4>
+            <p>Could be you or someone from campus</p>
+          </div>
+          <div class="coming-card">
+            <div class="coming-img">?</div>
+            <h4>NEXT ARTIST</h4>
+            <p>Could be you or someone from campus</p>
+          </div>
+          <div class="coming-card">
+            <div class="coming-img">?</div>
+            <h4>NEXT ARTIST</h4>
+            <p>Could be you or someone from campus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div class="cta-section">
+      <h3 class="cta-title">BE THE FIRST ON THE LIST</h3>
+      <p class="cta-subtitle">Submit your music now to be considered for our inaugural roster. We're looking for raw talent, unique sound, and that campus connection.</p>
+      <a href="submit.html" class="btn-cta">SUBMIT YOUR MUSIC</a>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 TRITON ON THE RADAR | BUILDING THE WAVE</p>
+      <div class="social-links">
+        <a href="https://instagram.com/tritononradar" target="_blank">INSTAGRAM</a>
+        <a href="#">DISCORD</a>
+        <a href="#">SOUNDCLOUD</a>
+        <a href="#">YOUTUBE</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Add interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add typing effect to the hero text
+      const heroText = document.querySelector('.hero-text');
+      if (heroText) {
+        heroText.style.opacity = '0';
+        heroText.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          heroText.style.transition = 'opacity 1s ease, transform 1s ease';
+          heroText.style.opacity = '1';
+          heroText.style.transform = 'translateY(0)';
+        }, 300);
+      }
+      
+      // Add glitch effect on logo hover
+      const logo = document.querySelector('.logo');
+      logo.addEventListener('mouseenter', function() {
+        this.style.textShadow = '0 0 15px var(--accent), 2px 2px 0px var(--accent-secondary)';
+      });
+      
+      logo.addEventListener('mouseleave', function() {
+        this.style.textShadow = '0 0 10px var(--accent)';
+      });
+      
+      // Animate coming soon cards
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'skewX(-1deg) translateY(0)';
+            }, index * 200);
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.coming-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'skewX(-1deg) translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease';
+        observer.observe(card);
+      });
+      
+      // Button hover animation
+      const ctaBtn = document.querySelector('.btn-cta');
+      if (ctaBtn) {
+        ctaBtn.addEventListener('mouseenter', function() {
+          const icon = document.querySelector('.empty-icon');
+          if (icon) {
+            icon.style.animation = 'pulse-icon 0.5s infinite';
+          }
+        });
+        
+        ctaBtn.addEventListener('mouseleave', function() {
+          const icon = document.querySelector('.empty-icon');
+          if (icon) {
+            icon.style.animation = 'pulse-icon 2s infinite';
+          }
+        });
+      }
+      
+      // Randomize coming soon card colors on hover
+      document.querySelectorAll('.coming-card').forEach(card => {
+        const img = card.querySelector('.coming-img');
+        card.addEventListener('mouseenter', function() {
+          const hues = ['0, 255, 0', '255, 0, 255', '0, 255, 255', '255, 255, 0'];
+          const randomHue1 = hues[Math.floor(Math.random() * hues.length)];
+          const randomHue2 = hues[Math.floor(Math.random() * hues.length)];
+          img.style.background = `linear-gradient(135deg, rgb(${randomHue1}) 0%, rgb(${randomHue2}) 100%)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          img.style.background = 'linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
