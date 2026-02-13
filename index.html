@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triton On The Radar | Independent Record Label</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@300;400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #000000;
+      --dark-gray: #0a0a0a;
+      --medium-gray: #1a1a1a;
+      --light-gray: #808080;
+      --white: #ffffff;
+      --accent: #ffffff;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 60px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 50px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark-gray) 100%);
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 1000px;
+      padding: 0 40px;
+    }
+
+    .hero h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 30px;
+      color: var(--white);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      line-height: 1.8;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+      border: 1px solid var(--white);
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 120px 60px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .section-content h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 30px;
+    }
+
+    .section-content p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .section-image {
+      width: 100%;
+      height: 500px;
+      background: var(--medium-gray);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-image::after {
+      content: 'TRITON ON THE RADAR';
+      position: absolute;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.05);
+      text-transform: uppercase;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 100px 60px;
+      background: var(--medium-gray);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 60px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .stat p {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 150px 60px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 30px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      margin-bottom: 50px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px;
+    }
+
+    .footer-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 60px;
+    }
+
+    .footer-brand {
+      flex: 1;
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      font-weight: 300;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 80px;
+    }
+
+    .footer-column h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      color: var(--light-gray);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column ul li a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      max-width: 1600px;
+      margin: 50px auto 0;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--light-gray);
+      font-weight: 300;
+    }
+
+    /* Mobile Menu */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0 40px;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+
+      .content-section,
+      .cta-section,
+      footer {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.98);
+        flex-direction: column;
+        padding: 40px;
+        gap: 30px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .nav-container {
+        padding: 0 30px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .footer-container {
+        flex-direction: column;
+      }
+
+      .content-section,
+      .stats-section,
+      .cta-section,
+      footer {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Subtle animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content {
+      animation: fadeIn 1s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Triton On The Radar</a>
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="roster.html">Roster</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="submit.html">Submit</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Amplifying Tomorrow's Sound</h1>
+      <p>An independent record label discovering and developing exceptional artists who are shaping the future of music.</p>
+      <div class="hero-cta">
+        <a href="submit.html" class="btn btn-primary">Submit Music</a>
+        <a href="roster.html" class="btn btn-secondary">View Roster</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="content-section">
+    <div class="section-grid">
+      <div class="section-content">
+        <h2>Artist Development</h2>
+        <p>We provide comprehensive support for emerging talent, from production and marketing to distribution and career guidance.</p>
+        <p>Our commitment is to authentic artistry and long-term development, not quick commercial wins. We invest in artists who have a clear vision and the drive to realize it.</p>
+      </div>
+      <div class="section-image"></div>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat">
+        <h3>2026</h3>
+        <p>Founded</p>
+      </div>
+      <div class="stat">
+        <h3>100%</h3>
+        <p>Independent</p>
+      </div>
+      <div class="stat">
+        <h3>Global</h3>
+        <p>Distribution</p>
+      </div>
+      <div class="stat">
+        <h3>24/7</h3>
+        <p>Support</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-grid">
+      <div class="section-image"></div>
+      <div class="section-content">
+        <h2>Creative Freedom</h2>
+        <p>We believe in authentic artistic expression. Your vision guides the process, and we're here to help you realize it without compromise.</p>
+        <p>From the studio to the stage, we provide the resources and expertise while you maintain complete creative control over your music.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="cta-section">
+    <h2>Ready to get on the radar?</h2>
+    <p>Submit your music and join a roster of innovative artists.</p>
+    <a href="submit.html" class="btn btn-primary">Start Application</a>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">Triton On The Radar</div>
+        <p class="footer-tagline">Independent Record Label</p>
+      </div>
+      
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="submit.html">Submit</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://instagram.com/tritononradar" target="_blank">Instagram</a></li>
+            <li><a href="https://discord.gg/PQWSBYMZNh" target="_blank">Discord</a></li>
+            <li><a href="#" target="_blank">SoundCloud</a></li>
+            <li><a href="#" target="_blank">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Triton On The Radar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      toggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        toggle.textContent = '☰';
+      });
+    });
+
+    // Hide navbar on scroll
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        navbar.classList.remove('hidden');
+        return;
+      }
+      
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+
+</body>
+</html>
