@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit | Triton On The Radar</title>
+</head>
+<body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@300;400;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --black: #000000; --dark-gray: #0a0a0a; --medium-gray: #1a1a1a; --light-gray: #808080; --white: #ffffff; --border: rgba(255, 255, 255, 0.08); }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; }
+    .nav-container { max-width: 1600px; margin: 0 auto; padding: 0 60px; height: 80px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; color: var(--white); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 50px; list-style: none; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.3s ease; text-transform: uppercase; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .page-header { padding: 180px 60px 100px; text-align: center; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-family: 'Crimson Pro', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 25px; }
+    .page-header p { font-size: 1.1rem; font-weight: 300; color: var(--light-gray); max-width: 700px; margin: 0 auto; }
+    .submit-content { padding: 100px 60px; max-width: 900px; margin: 0 auto; }
+    .requirements { background: var(--medium-gray); border: 1px solid var(--border); padding: 60px; margin-bottom: 60px; }
+    .requirements h2 { font-family: 'Crimson Pro', serif; font-size: 2rem; font-weight: 300; margin-bottom: 30px; }
+    .requirements ul { list-style: none; padding: 0; }
+    .requirements li { padding: 20px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem; color: var(--light-gray); font-weight: 300; line-height: 1.7; }
+    .requirements li:last-child { border-bottom: none; }
+    .requirements strong { color: var(--white); display: block; margin-bottom: 5px; font-weight: 500; }
+    .form-container { background: var(--medium-gray); border: 1px solid var(--border); padding: 60px; }
+    .form-container h2 { font-family: 'Crimson Pro', serif; font-size: 2rem; font-weight: 300; margin-bottom: 40px; }
+    .form-group { margin-bottom: 30px; }
+    .form-group label { display: block; margin-bottom: 10px; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 16px; background: var(--dark-gray); border: 1px solid var(--border); color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 300; transition: border-color 0.3s ease; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 150px; }
+    .btn-submit { width: 100%; padding: 18px; background: var(--white); color: var(--black); border: 1px solid var(--white); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s ease; }
+    .btn-submit:hover { background: transparent; color: var(--white); }
+    footer { border-top: 1px solid var(--border); padding: 60px; }
+    .footer-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; }
+    .footer-brand { flex: 1; }
+    .footer-logo { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 20px; text-transform: uppercase; }
+    .footer-tagline { font-size: 0.9rem; color: var(--light-gray); font-weight: 300; }
+    .footer-links { display: flex; gap: 80px; }
+    .footer-column h4 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; color: var(--light-gray); }
+    .footer-column ul { list-style: none; }
+    .footer-column ul li { margin-bottom: 12px; }
+    .footer-column ul li a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; font-weight: 300; transition: color 0.3s ease; }
+    .footer-column ul li a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1600px; margin: 50px auto 0; padding-top: 30px; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--light-gray); font-weight: 300; }
+    .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 1024px) { .footer-links { flex-direction: column; gap: 40px; } }
+    @media (max-width: 768px) { .mobile-toggle { display: block; } .nav-links { position: fixed; top: 80px; left: 0; right: 0; background: rgba(0, 0, 0, 0.98); flex-direction: column; padding: 40px; gap: 30px; border-bottom: 1px solid var(--border); transform: translateY(-100%); opacity: 0; transition: all 0.3s ease; pointer-events: none; } .nav-links.active { transform: translateY(0); opacity: 1; pointer-events: all; } .nav-container, .page-header, .submit-content, footer { padding-left: 30px; padding-right: 30px; } .requirements, .form-container { padding: 40px; } .footer-container { flex-direction: column; } }
+    html { scroll-behavior: smooth; }
+  </style>
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Triton On The Radar</a>
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roster.html">Roster</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="submit.html" class="active">Submit</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>Submit Your Music</h1>
+    <p>We review every submission personally. Show us what makes your sound unique.</p>
+  </section>
+
+  <section class="submit-content">
+    <div class="requirements">
+      <h2>Requirements</h2>
+      <ul>
+        <li><strong>Professional Quality Audio</strong>Finished tracks in WAV or 320kbps MP3 format. No demos or rough cuts.</li>
+        <li><strong>Active Online Presence</strong>Instagram, TikTok, or other platforms demonstrating your audience and aesthetic.</li>
+        <li><strong>Clear Artist Identity</strong>A defined vision for your music and career trajectory.</li>
+        <li><strong>Professional Commitment</strong>Dedication to growth, collaboration, and long-term development.</li>
+        <li><strong>UCSD Connection Preferred</strong>Current students or alumni receive priority consideration.</li>
+      </ul>
+    </div>
+
+    <div class="form-container">
+      <h2>Application</h2>
+      <form id="submitForm">
+        <div class="form-group">
+          <label for="artistName">Artist Name *</label>
+          <input type="text" id="artistName" name="artistName" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="genre">Primary Genre *</label>
+          <select id="genre" name="genre" required>
+            <option value="">Select Genre</option>
+            <option value="hiphop">Hip-Hop / Rap</option>
+            <option value="pop">Pop</option>
+            <option value="rnb">R&B / Soul</option>
+            <option value="electronic">Electronic</option>
+            <option value="rock">Rock / Alternative</option>
+            <option value="indie">Indie</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="location">Location *</label>
+          <input type="text" id="location" name="location" placeholder="City, State" required>
+        </div>
+        <div class="form-group">
+          <label for="musicLink">Music Link *</label>
+          <input type="url" id="musicLink" name="musicLink" placeholder="Spotify, SoundCloud, YouTube, etc." required>
+        </div>
+        <div class="form-group">
+          <label for="socialMedia">Social Media Handle *</label>
+          <input type="text" id="socialMedia" name="socialMedia" placeholder="@yourusername" required>
+        </div>
+        <div class="form-group">
+          <label for="bio">About You *</label>
+          <textarea id="bio" name="bio" placeholder="Tell us about yourself as an artist..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="ucsd">UCSD Affiliation (Optional)</label>
+          <input type="text" id="ucsd" name="ucsd" placeholder="Student, Alumni, or N/A">
+        </div>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">Triton On The Radar</div>
+        <p class="footer-tagline">Independent Record Label</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="submit.html">Submit</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://instagram.com/tritononradar" target="_blank">Instagram</a></li>
+            <li><a href="https://discord.gg/PQWSBYMZNh" target="_blank">Discord</a></li>
+            <li><a href="#" target="_blank">SoundCloud</a></li>
+            <li><a href="#" target="_blank">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Triton On The Radar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      toggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        toggle.textContent = '☰';
+      });
+    });
+    document.getElementById('submitForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your submission. We will review your application and be in touch.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
