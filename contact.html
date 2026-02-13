@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Triton On The Radar</title>
+</head>
+<body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@300;400;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --black: #000000; --dark-gray: #0a0a0a; --medium-gray: #1a1a1a; --light-gray: #808080; --white: #ffffff; --border: rgba(255, 255, 255, 0.08); }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; }
+    .nav-container { max-width: 1600px; margin: 0 auto; padding: 0 60px; height: 80px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; color: var(--white); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 50px; list-style: none; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.3s ease; text-transform: uppercase; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .page-header { padding: 180px 60px 100px; text-align: center; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-family: 'Crimson Pro', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 25px; }
+    .page-header p { font-size: 1.1rem; font-weight: 300; color: var(--light-gray); max-width: 700px; margin: 0 auto; }
+    .contact-content { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+    .contact-card { background: var(--dark-gray); padding: 60px; transition: background 0.3s ease; }
+    .contact-card:hover { background: var(--medium-gray); }
+    .contact-card h3 { font-family: 'Crimson Pro', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 15px; }
+    .contact-card p { font-size: 0.95rem; color: var(--light-gray); margin-bottom: 20px; line-height: 1.7; font-weight: 300; }
+    .contact-card a { color: var(--white); text-decoration: none; font-size: 1rem; transition: opacity 0.3s ease; }
+    .contact-card a:hover { opacity: 0.7; }
+    .social-section { padding: 80px 60px; text-align: center; border-top: 1px solid var(--border); }
+    .social-section h2 { font-family: 'Crimson Pro', serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 60px; }
+    .social-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .social-links a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.3s ease; }
+    .social-links a:hover { color: var(--white); }
+    footer { border-top: 1px solid var(--border); padding: 60px; }
+    .footer-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; }
+    .footer-brand { flex: 1; }
+    .footer-logo { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 20px; text-transform: uppercase; }
+    .footer-tagline { font-size: 0.9rem; color: var(--light-gray); font-weight: 300; }
+    .footer-links { display: flex; gap: 80px; }
+    .footer-column h4 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; color: var(--light-gray); }
+    .footer-column ul { list-style: none; }
+    .footer-column ul li { margin-bottom: 12px; }
+    .footer-column ul li a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; font-weight: 300; transition: color 0.3s ease; }
+    .footer-column ul li a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1600px; margin: 50px auto 0; padding-top: 30px; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--light-gray); font-weight: 300; }
+    .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } .footer-links { flex-direction: column; gap: 40px; } }
+    @media (max-width: 768px) { .mobile-toggle { display: block; } .nav-links { position: fixed; top: 80px; left: 0; right: 0; background: rgba(0, 0, 0, 0.98); flex-direction: column; padding: 40px; gap: 30px; border-bottom: 1px solid var(--border); transform: translateY(-100%); opacity: 0; transition: all 0.3s ease; pointer-events: none; } .nav-links.active { transform: translateY(0); opacity: 1; pointer-events: all; } .nav-container, .page-header, .contact-content, .social-section, footer { padding-left: 30px; padding-right: 30px; } .contact-card { padding: 40px; } .footer-container { flex-direction: column; } }
+    html { scroll-behavior: smooth; }
+  </style>
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Triton On The Radar</a>
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roster.html">Roster</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="submit.html">Submit</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>Contact</h1>
+    <p>Get in touch for inquiries, collaborations, or general questions.</p>
+  </section>
+
+  <section class="contact-content">
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>General Inquiries</h3>
+        <p>For press, partnerships, and general questions about Triton On The Radar.</p>
+        <a href="mailto:info@tritononradar.com">info@tritononradar.com</a>
+      </div>
+      <div class="contact-card">
+        <h3>Artist Submissions</h3>
+        <p>Use the submission form or email us directly with your music.</p>
+        <a href="mailto:submit@tritononradar.com">submit@tritononradar.com</a>
+      </div>
+      <div class="contact-card">
+        <h3>Business & Press</h3>
+        <p>Media inquiries, booking requests, and business opportunities.</p>
+        <a href="mailto:press@tritononradar.com">press@tritononradar.com</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="social-section">
+    <h2>Connect With Us</h2>
+    <div class="social-links">
+      <a href="https://instagram.com/tritononradar" target="_blank">Instagram</a>
+      <a href="https://discord.gg/PQWSBYMZNh" target="_blank">Discord</a>
+      <a href="#" target="_blank">SoundCloud</a>
+      <a href="#" target="_blank">YouTube</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">Triton On The Radar</div>
+        <p class="footer-tagline">Independent Record Label</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="submit.html">Submit</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://instagram.com/tritononradar" target="_blank">Instagram</a></li>
+            <li><a href="https://discord.gg/PQWSBYMZNh" target="_blank">Discord</a></li>
+            <li><a href="#" target="_blank">SoundCloud</a></li>
+            <li><a href="#" target="_blank">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Triton On The Radar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      toggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        toggle.textContent = '☰';
+      });
+    });
+  </script>
+</body>
+</html>
